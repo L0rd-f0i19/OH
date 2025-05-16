@@ -1,208 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>RealzX Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: black;
-      overflow-x: hidden;
-      color: #d7b3ff;
-    }
-
-    /* خلفية نجوم */
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0c0014;
+      color: white;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      background-size: cover;
     }
 
     header {
       text-align: center;
-      padding: 40px 20px 20px;
+      padding: 40px 20px 10px;
     }
 
     h1 {
-      font-size: 48px;
-      margin: 0;
+      font-size: 40px;
       color: #c084fc;
     }
 
-    p {
-      font-size: 20px;
-      margin-top: 10px;
-      color: #e2d9ff;
-    }
-
-    .gui-box {
-      margin: 30px auto;
-      max-width: 400px;
-      background: #2e003e;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 0 25px #c084fc;
-      text-align: center;
-    }
-
-    .button {
-      margin-top: 20px;
-      padding: 15px 30px;
-      font-size: 18px;
-      background: #c084fc;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .developer {
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .developer h2 {
-      font-size: 32px;
-      color: #c084fc;
-    }
-
-    .developer img {
-      border-radius: 50%;
-      margin-top: 15px;
-      width: 130px;
-      height: 130px;
-      object-fit: cover;
-    }
-
-    /* القائمة الجانبية */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100%;
-      background: #1f0030;
-      transition: left 0.3s ease;
+    .script-box {
+      background: #1a002b;
+      margin: 20px auto;
       padding: 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-      z-index: 100;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #a855f7;
+      text-align: center;
     }
 
-    .sidebar.open {
-      left: 0;
-    }
-
-    .sidebar h3 {
-      color: #c084fc;
-    }
-
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 20px 0;
-    }
-
-    .sidebar ul li {
-      margin: 15px 0;
-      color: #e2d9ff;
-    }
-
-    .menu-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: #c084fc;
-      color: white;
-      padding: 10px 15px;
-      border: none;
+    .script-box input {
+      width: 100%;
+      padding: 12px;
       border-radius: 8px;
-      z-index: 200;
+      border: none;
+      font-size: 14px;
+      margin-top: 10px;
+      background-color: #2e003e;
+      color: #d9b4ff;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #c084fc;
+      color: white;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
+    }
+
+    .status-section {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .status-section h2 {
+      font-size: 28px;
+      color: #c084fc;
+      margin-bottom: 20px;
+    }
+
+    .status-list {
+      background: #1a002b;
+      max-width: 400px;
+      margin: 0 auto;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px #a855f7;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0;
+      font-size: 18px;
+      color: #f3e8ff;
+    }
+
+    .status-indicator {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+    }
+
+    .online {
+      background-color: #b46bff;
+    }
+
+    .offline {
+      background-color: #ff2d55;
     }
   </style>
 </head>
 <body>
 
-<!-- خلفية النجوم -->
-<canvas id="stars"></canvas>
-
-<!-- زر القائمة -->
-<button class="menu-button" onclick="toggleSidebar()">☰</button>
-
-<!-- القائمة الجانبية -->
-<div class="sidebar" id="sidebar">
-  <h3>RealzX Menu</h3>
-  <ul>
-    <li>Executor Support</li>
-    <li>Delta Custom</li>
-    <li>Help RealzX Hub</li>
-  </ul>
-</div>
-
 <header>
   <h1>RealzX Hub</h1>
-  <p>RealzX hub an exploit for roblox</p>
 </header>
 
-<div class="gui-box">
-  <p>Choose your feature:</p>
-  <button class="button">Get the script</button>
+<div class="script-box">
+  <div>RealzX Hub Script</div>
+  <input type="text" id="scriptText" value='loadstring(game:HttpGet("https://realzxhubb.vercel.app"))()' readonly>
+  <button class="copy-btn" onclick="copyScript()">Copy Script</button>
 </div>
 
-<div class="developer">
-  <h2>Developer</h2>
-  <img src="https://i.imgur.com/your-image.png" alt="Developer Image" />
+<div class="status-section">
+  <h2>Script Status</h2>
+  <div class="status-list">
+    <div class="status-item">
+      Brookhaven RP 👮 <span class="status-indicator online"></span>
+    </div>
+    <div class="status-item">
+      Blue Lock: Rivals ⚽ <span class="status-indicator online"></span>
+    </div>
+    <div class="status-item">
+      Blox Fruits 🍉 <span class="status-indicator online"></span>
+    </div>
+    <div class="status-item">
+      Murder Mystery 2 🔪 <span class="status-indicator offline"></span>
+    </div>
+    <div class="status-item">
+      Gym League 💪 <span class="status-indicator online"></span>
+    </div>
+    <div class="status-item">
+      Universal 🌐 <span class="status-indicator online"></span>
+    </div>
+  </div>
 </div>
 
-<!-- سكربت النجوم -->
 <script>
-  const canvas = document.getElementById("stars");
-  const ctx = canvas.getContext("2d");
-
-  let stars = [];
-  for (let i = 0; i < 100; i++) {
-    stars.push({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: Math.random() * 1.5,
-      d: Math.random() * 1
-    });
-  }
-
-  function drawStars() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#c084fc";
-    for (let i = 0; i < stars.length; i++) {
-      const s = stars[i];
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
-      ctx.fill();
-    }
-  }
-
-  function animateStars() {
-    for (let i = 0; i < stars.length; i++) {
-      stars[i].y += stars[i].d;
-      if (stars[i].y > canvas.height) {
-        stars[i].y = 0;
-        stars[i].x = Math.random() * canvas.width;
-      }
-    }
-    drawStars();
-    requestAnimationFrame(animateStars);
-  }
-
-  drawStars();
-  animateStars();
-
-  function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("open");
+  function copyScript() {
+    var copyText = document.getElementById("scriptText");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile
+    navigator.clipboard.writeText(copyText.value);
+    alert("Copied the script!");
   }
 </script>
+
 </body>
 </html>
