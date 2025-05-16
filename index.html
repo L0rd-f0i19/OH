@@ -8,11 +8,13 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0c0014;
+      background: #0f0520;
       color: white;
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      background-image:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 40%);
       background-repeat: repeat;
-      background-size: auto;
+      background-size: 200px 200px;
     }
 
     header {
@@ -110,12 +112,12 @@
     }
 
     .online {
-      background-color: #22c55e; /* أخضر */
+      background-color: #22c55e;
       box-shadow: 0 0 8px #22c55e;
     }
 
     .offline {
-      background-color: #ef4444; /* أحمر */
+      background-color: #ef4444;
       box-shadow: 0 0 8px #ef4444;
     }
   </style>
@@ -159,7 +161,7 @@
     function copyScript() {
       const copyText = document.getElementById('scriptText');
       copyText.select();
-      copyText.setSelectionRange(0, 99999); // للهواتف
+      copyText.setSelectionRange(0, 99999);
       navigator.clipboard.writeText(copyText.value).then(() => {
         alert('Copied the script!');
       });
