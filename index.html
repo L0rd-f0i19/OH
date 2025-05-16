@@ -258,4 +258,127 @@
   </section>
 
   <section class="features" aria-label="Exploit Features">
-    <h3>
+    <h3>Features</h3>
+    <div class="features-list">
+      <div class="feature-item" title="Automated functions for your ease">
+        <i class="fas fa-robot feature-icon"></i>
+        <div class="feature-text">Auto Scripts</div>
+      </div>
+      <div class="feature-item" title="Detect & kick toxic players">
+        <i class="fas fa-ban feature-icon"></i>
+        <div class="feature-text">Toxic Kick</div>
+      </div>
+      <div class="feature-item" title="Reliable & fast execution">
+        <i class="fas fa-bolt feature-icon"></i>
+        <div class="feature-text">Speed Boost</div>
+      </div>
+      <div class="feature-item" title="Custom anti-cheat bypass">
+        <i class="fas fa-shield-alt feature-icon"></i>
+        <div class="feature-text">Anti-Cheat Bypass</div>
+      </div>
+      <div class="feature-item" title="Active support & updates">
+        <i class="fas fa-headset feature-icon"></i>
+        <div class="feature-text">Support Team</div>
+      </div>
+      <div class="feature-item" title="Easy UI & customization">
+        <i class="fas fa-cogs feature-icon"></i>
+        <div class="feature-text">User Friendly</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 RealzX Community Exploit | Developed by RealzX
+</footer>
+
+<script>
+// Starfield Animation
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let width, height, stars;
+
+function initStars() {
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+
+  stars = [];
+  let starCount = Math.floor(width * height / 4000);
+
+  for (let i = 0; i < starCount; i++) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 1.8 + 0.3,
+      speed: Math.random() * 0.3 + 0.05,
+      opacity: Math.random() * 0.8 + 0.2,
+      twinkleDir: Math.random() > 0.5 ? 1 : -1
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, width, height);
+
+  for (let star of stars) {
+    star.x -= star.speed;
+    if (star.x < 0) star.x = width;
+
+    star.opacity += 0.008 * star.twinkleDir;
+    if (star.opacity >= 1) {
+      star.opacity = 1;
+      star.twinkleDir = -1;
+    } else if (star.opacity <= 0.3) {
+      star.opacity = 0.3;
+      star.twinkleDir = 1;
+    }
+
+    ctx.beginPath();
+    const gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.size * 3);
+    gradient.addColorStop(0, `rgba(255,255,255,${star.opacity})`);
+    gradient.addColorStop(0.4, `rgba(255,255,255,${star.opacity * 0.4})`);
+    gradient.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = gradient;
+    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
+initStars();
+drawStars();
+
+// Example API simulation
+function getExploit() {
+  const button = document.querySelector('.btn-get-exploit');
+  button.disabled = true;
+  button.textContent = 'Loading...';
+
+  // Simulate an async API call
+  setTimeout(() => {
+    // Example data from "API"
+    const apiResponse = {
+      name: "RealzX Community Exploit",
+      version: "v3.1.7",
+      lastUpdate: "2025-05-16",
+      features: ["Auto Scripts", "Toxic Kick", "Speed Boost", "Anti-Cheat Bypass", "Support Team", "User Friendly"]
+    };
+
+    alert(
+      `Exploit Name: ${apiResponse.name}\n` +
+      `Version: ${apiResponse.version}\n` +
+      `Last Update: ${apiResponse.lastUpdate}\n` +
+      `Features: ${apiResponse.features.join(", ")}`
+    );
+
+    button.textContent = 'Get Exploit';
+    button.disabled = false;
+  }, 1400);
+}
+</script>
+
+</body>
+</html>
