@@ -5,62 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RealzX Community Exploit</title>
 <style>
-  /* Background animation */
-  body {
+  /* Reset & basic */
+  body, html {
     margin: 0;
-    height: 100vh;
-    background: linear-gradient(270deg, #6a0dad, #9b30ff, #5e0c7b);
-    background-size: 600% 600%;
-    animation: backgroundAnimation 20s ease infinite;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
+    background: #1b0033;
+    position: relative;
+  }
+
+  /* Canvas background fills */
+  #starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: #1b0033;
+  }
+
+  /* Main container with scroll if needed */
+  #app {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 15px;
-  }
-  @keyframes backgroundAnimation {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
   }
 
   h1 {
     font-size: 3rem;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px #b366ff;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px #b366ff;
   }
 
   /* Get Exploit button */
   .btn-get-exploit {
     background: linear-gradient(45deg, #9b30ff, #6a0dad);
     border: none;
-    padding: 20px 50px;
+    padding: 20px 55px;
     font-size: 1.8rem;
     font-weight: 700;
-    border-radius: 15px;
-    box-shadow: 0 0 20px #c07fff;
+    border-radius: 18px;
+    box-shadow: 0 0 25px #c07fff;
     cursor: pointer;
     color: white;
-    margin: 20px 0 40px 0;
+    margin: 25px 0 50px 0;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
   }
   .btn-get-exploit:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 40px #d580ff, 0 0 50px #a855f7;
+    transform: scale(1.12);
+    box-shadow: 0 0 50px #d580ff, 0 0 60px #a855f7;
   }
   .btn-get-exploit::before {
     content: "";
     position: absolute;
-    top: -30%;
-    left: -30%;
-    width: 160%;
-    height: 160%;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-    animation: rotatePulse 4s linear infinite;
-    border-radius: 15px;
+    top: -40%;
+    left: -40%;
+    width: 180%;
+    height: 180%;
+    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+    animation: rotatePulse 5s linear infinite;
+    border-radius: 18px;
     pointer-events: none;
   }
   @keyframes rotatePulse {
@@ -68,131 +82,137 @@
     100% {transform: rotate(360deg);}
   }
 
-  /* Developer section */
+  /* Developer card */
   .developer {
     display: flex;
     align-items: center;
-    gap: 20px;
-    margin-bottom: 40px;
-    max-width: 600px;
+    gap: 25px;
+    margin-bottom: 55px;
+    max-width: 650px;
     width: 90%;
-    background: rgba(75, 0, 130, 0.4);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 30px #9b30ff88;
+    background: rgba(75, 0, 130, 0.45);
+    border-radius: 25px;
+    padding: 25px 30px;
+    box-shadow: 0 0 40px #9b30ffbb;
+    backdrop-filter: blur(6px);
   }
   .developer img {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 3px solid #d280ff;
+    border: 4px solid #d280ff;
     object-fit: cover;
-    box-shadow: 0 0 15px #c07fff;
+    box-shadow: 0 0 22px #c07fff;
   }
   .developer-info h2 {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 2rem;
+    text-shadow: 0 0 10px #d280ff;
   }
   .developer-info p {
-    margin: 5px 0 0 0;
-    font-size: 1rem;
+    margin: 7px 0 0 0;
+    font-size: 1.1rem;
     color: #e0d7ffcc;
   }
 
-  /* Supported maps list */
+  /* Supported maps */
   .maps {
-    max-width: 700px;
+    max-width: 750px;
     width: 90%;
-    margin-bottom: 50px;
+    margin-bottom: 65px;
   }
   .maps h3 {
-    font-size: 2rem;
-    margin-bottom: 15px;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
     text-align: center;
-    text-shadow: 0 0 6px #b366ff;
+    text-shadow: 0 0 9px #b366ff;
   }
   .maps-list {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 30px;
   }
   .map-item {
-    background: rgba(115, 0, 180, 0.3);
-    padding: 15px 25px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px #9b30ff88;
-    font-size: 1.1rem;
+    background: rgba(115, 0, 180, 0.4);
+    padding: 18px 28px;
+    border-radius: 18px;
+    box-shadow: 0 0 22px #9b30ffaa;
+    font-size: 1.25rem;
     font-weight: 600;
-    min-width: 140px;
+    min-width: 160px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    transition: transform 0.3s ease;
+    gap: 14px;
+    transition: transform 0.35s ease;
     cursor: default;
   }
   .map-item:hover {
-    transform: scale(1.1);
+    transform: scale(1.12);
   }
   .map-icon {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
-  /* Features list */
+  /* Features */
   .features {
-    max-width: 700px;
+    max-width: 750px;
     width: 90%;
-    margin-bottom: 50px;
+    margin-bottom: 65px;
   }
   .features h3 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 2.2rem;
+    margin-bottom: 24px;
     text-align: center;
-    text-shadow: 0 0 6px #b366ff;
+    text-shadow: 0 0 9px #b366ff;
   }
   .features-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
   }
   .feature-item {
-    background: rgba(115, 0, 180, 0.3);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 25px #a855f7aa;
+    background: rgba(115, 0, 180, 0.45);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 0 35px #a855f7cc;
     text-align: center;
     color: #eee;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    cursor: default;
   }
   .feature-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 40px #d280ffcc;
+    transform: translateY(-10px);
+    box-shadow: 0 0 55px #d280ffcc;
   }
   .feature-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
+    font-size: 3.5rem;
+    margin-bottom: 18px;
     color: #d280ff;
-    animation: glowPulse 3s ease infinite;
+    animation: glowPulse 3.5s ease infinite;
   }
   @keyframes glowPulse {
-    0%, 100% {text-shadow: 0 0 8px #d280ff;}
-    50% {text-shadow: 0 0 20px #a855f7;}
+    0%, 100% {text-shadow: 0 0 10px #d280ff;}
+    50% {text-shadow: 0 0 30px #a855f7;}
   }
   .feature-text {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
   }
 
   /* Footer */
   footer {
-    margin-top: auto;
-    padding: 20px 10px;
+    padding: 20px 15px;
     width: 100%;
     text-align: center;
-    background: rgba(50, 0, 80, 0.6);
-    font-size: 0.9rem;
+    background: rgba(50, 0, 80, 0.75);
+    font-size: 1rem;
     color: #ccc;
     user-select: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
   }
   footer a {
     color: #d280ff;
@@ -203,7 +223,6 @@
     text-decoration: underline;
   }
 </style>
-<!-- Load icons (FontAwesome CDN for cool icons) -->
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -211,75 +230,32 @@
 </head>
 <body>
 
-<h1>RealzX Community Exploit</h1>
+<canvas id="starfield"></canvas>
 
-<button class="btn-get-exploit" onclick="getExploit()">
-  <i class="fas fa-bolt"></i> Get Exploit
-</button>
+<div id="app">
+  <h1>RealzX Community Exploit</h1>
 
-<!-- Developer info -->
-<div class="developer" aria-label="Developer Information">
-  <img src="https://i.pravatar.cc/110?u=realzx" alt="Developer RealzX Photo" />
-  <div class="developer-info">
-    <h2>RealzX</h2>
-    <p>Lead Developer & Exploit Creator<br>Passionate about Roblox scripting & community support.</p>
-  </div>
-</div>
+  <button class="btn-get-exploit" onclick="getExploit()">
+    <i class="fas fa-bolt"></i> Get Exploit
+  </button>
 
-<!-- Supported Maps -->
-<section class="maps" aria-label="Supported Maps List">
-  <h3>Supported Maps</h3>
-  <div class="maps-list">
-    <div class="map-item"><i class="fas fa-map"></i> Brookhaven</div>
-    <div class="map-item"><i class="fas fa-city"></i> MeepCity</div>
-    <div class="map-item"><i class="fas fa-archway"></i> Royale High</div>
-    <div class="map-item"><i class="fas fa-campground"></i> Bloxburg</div>
-  </div>
-</section>
-
-<!-- Features -->
-<section class="features" aria-label="Exploit Features">
-  <h3>Exploit Features</h3>
-  <div class="features-list">
-    <div class="feature-item" title="Fast and reliable">
-      <i class="fas fa-tachometer-alt feature-icon"></i>
-      <div class="feature-text">Fast & Reliable</div>
-    </div>
-    <div class="feature-item" title="Bypass anti-cheat">
-      <i class="fas fa-shield-alt feature-icon"></i>
-      <div class="feature-text">Anti-Cheat Bypass</div>
-    </div>
-    <div class="feature-item" title="Custom script support">
-      <i class="fas fa-code feature-icon"></i>
-      <div class="feature-text">Custom Script Support</div>
-    </div>
-    <div class="feature-item" title="Easy to use UI">
-      <i class="fas fa-mouse-pointer feature-icon"></i>
-      <div class="feature-text">User-Friendly UI</div>
-    </div>
-    <div class="feature-item" title="Secure & Protected">
-      <i class="fas fa-lock feature-icon"></i>
-      <div class="feature-text">Secure & Protected</div>
-    </div>
-    <div class="feature-item" title="Constant Updates">
-      <i class="fas fa-sync feature-icon"></i>
-      <div class="feature-text">Constant Updates</div>
+  <div class="developer" aria-label="Developer Information">
+    <img src="https://i.pravatar.cc/120?u=realzx" alt="Developer RealzX Photo" />
+    <div class="developer-info">
+      <h2>RealzX</h2>
+      <p>Lead Developer & Exploit Creator<br>Passionate about Roblox scripting & community support.</p>
     </div>
   </div>
-</section>
 
-<footer>
-  Made with 💜 by RealzX Community | 
-  <a href="https://discord.gg/realzx" target="_blank" rel="noopener noreferrer">Support Discord</a>
-</footer>
+  <section class="maps" aria-label="Supported Maps List">
+    <h3>Supported Maps</h3>
+    <div class="maps-list">
+      <div class="map-item"><i class="fas fa-map map-icon"></i> Brookhaven</div>
+      <div class="map-item"><i class="fas fa-city map-icon"></i> MeepCity</div>
+      <div class="map-item"><i class="fas fa-archway map-icon"></i> Royale High</div>
+      <div class="map-item"><i class="fas fa-campground map-icon"></i> Bloxburg</div>
+    </div>
+  </section>
 
-<script>
-  function getExploit() {
-    // Simulate download/start exploit action (replace with real link or code)
-    alert("Starting RealzX Community Exploit...\n\nGet ready!");
-    // Example: window.open("https://realzxcommunity.com/exploit/download", "_blank");
-  }
-</script>
-
-</body>
-</html>
+  <section class="features" aria-label="Exploit Features">
+    <h3>
