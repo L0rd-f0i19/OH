@@ -1,171 +1,655 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>RealzX Hub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f0520;
-      color: white;
-      background-image:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05) 0%, transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 40%);
-      background-repeat: repeat;
-      background-size: 200px 200px;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Your #1 powerful semi-legit scripts provider.">
+        <title>Overdrive H</title>
+        <link rel="icon" href="https://raw.githubusercontent.com/ItsJiDy/Overdrive-H/refs/heads/main/images/fav_icon.png" type="image/x-icon">
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(5, 5, 10, 0.9); /* Black background */
+            background-image: url("https://i.pinimg.com/originals/55/01/60/5501609ee45d514d1f2c4a63502045e2.gif"); /* bg */
+            color: #fff; /* White text */
+            overflow-x: hidden;
+            background-repeat: no-repeat; /* just to make sure */
+            background-size: cover;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            background-color: rgba(0, 0, 128, 0.3); /* 80% transparent */
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        footer {
+            position: fixed;
+            text-align: center;
+            bottom: 0;
+            width: 90%;
+        }
+        .centerhead {
+            position: center;
+        }
+        .centerhead h1 {
+            font-size: 2rem;
+            text-align: center;
+        }
+        .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .containers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .all {
+            background-color: rgba(30, 30, 30, 0.5); /* Dark blue */
+            color: white;
+            width: 90%;
+            border-radius: 5px;
+            position: fixed;
+            z-index: 1000;
+            right: 5%;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Left Side (Logo + Title) */
+        .left-side {
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-box {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+            opacity: 0;
+            z-index: 1000;
+        }
+        
+        /* Alert content */
+        .alert-content {
+            background-color: rgba(20, 20, 20, 0);
+            padding: 20px;
+            width: 60%;
+            border-radius: 8px;
+            text-align: center;
+            background-transparency: 80%;
+            border: 1px solid #555; /* Border */
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.5s ease-in-out, transform 1s ease, box-shadow 1s ease;
+            transform: translateY(100px);
+            opacity: 0;
+        }
+        
+        .alert-content:hover {
+            box-shadow: 0 0 15px 5px rgba(0, 0, 255, 0.8);
+        }
+        
+        /* Button styling */
+        .alert-content button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background: #007bff;
+            color: white;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+        
+        .alert-content button:hover {
+            background: #0056b3;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Menu Icon */
+        .menu-icon {
+            font-size: 24px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Dropdown Menu (Hidden by Default) */
+        .menu-container {
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgb(0, 0, 0, 0);
+            text-align: center;
+            overflow: hidden;
+            height: 0;
+            transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            background-color: rgb(0, 0, 0, 0);
+        }
+
+        .menu-items a {
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            background-color: rgb(0, 0, 0, 0);
+            transition: color 0.5s ease;
+        }
+
+        .menu-items a:hover {
+            color: rgba(0, 0, 255, 1);
+        }
+
+        /* Expand Class */
+        .menu-container.expand {
+            height: 90px; /* Adjust height based on number of items */
+            opacity: 1;
+        }
+
+        /* Rotate icon when expanded */
+        .rotating {
+            transform: rotate(135deg);
+        }
+        .main {
+            text-align: center;
+            padding: 100% 1rem;
+            transform: translateY(100px); /* Initially moved down */
+            transition: opacity 0.6s ease, transform 0.6s ease; /* Add transition */
+            position: center;
+        }
+        .main img {
+            width: 15%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .main h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .main p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .main a.button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #7a00ff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            transition: background 1s ease;
+        }
+        .main a.button:hover {
+            background-color: #e300ff;
+        }
+        footer {
+            text-align: center;
+            width: 90%
+            background-color: #000000;
+            padding: 1.3rem 0;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        .image-container {
+            margin: 2rem auto;
+            width: auto;
+            max-width: 400px;
+            height: auto;
+            background-color: rgba(20, 20, 50, 0.3); /* Blue background and shit */
+            border: 1px solid #555; /* Border */
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            overflow: hidden;
+            text-align: center; /* Center-align text */
+            transition: transform 1s ease, box-shadow 1s ease;
+            background-transparency: 80%;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+        }
+        .image-container:hover {
+            box-shadow: 0 0 15px 5px rgba(0, 0, 255, 0.8);
+        }
+        .image-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .image-container a.button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #7a00ff;
+            padding: 0.45rem 45px;
+            position: center;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            overflow: hidden;
+            transition: transform 1s ease, background 1s ease;
+        }
+        .image-container a.button:hover {
+            background-color: #e300ff;
+            color: yellow;
+        }
+        .image-container .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: #ffffff;
+        }
+        .image-container .description {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #ddd;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="customAlert" class="alert-box">
+            <div class="alert-content" id="alert-content">
+                 <h3>Overdrive H</h3>
+
+                <p id="alert-text">...</p>
+                <button id="alert-okay">Okay</button>
+            </div>
+        </div>
+        <div class="all">
+            <div class="top-bar">
+                <div class="left-side">
+                    <img src="https://raw.githubusercontent.com/ItsJiDy/Overdrive-H/refs/heads/main/images/fav_icon.png" alt="Logo" class="logo">
+                    <div class="title">
+                        Overdrive H
+                    </div>
+                </div>
+                <div class="menu-icon" id="menuIcon">
+                    +
+                </div>
+            </div>
+            <div class="menu-container" id="menuContainer">
+                <div class="menu-items">
+                    <a href="https://overdrivehub.xyz/">Home</a> <a href="https://discord.gg/dudJwCefnQ">Discord</a>
+                </div>
+            </div>
+        </div>
+        <div class="main" id="v">
+            <h1>Key System</h1>
+            <div class="image-container" id="checkpoint-container">
+                <div class="title">
+                    Authentication
+                </div>
+                <div class="description">
+                    Completed <b id="COMPLETED_CHECKPOINTS">0</b> of <b id="CHECKPOINTS">3</b> <br>Key Duration: <b id="KEY_DURATION">0 Hours</b><br> Target Service: <b id="TARGET_SERVICE">Linkvertise</b>
+                    <p style="word-wrap: break-word;" id="desc">Click <b>'Continue'</b> in order to proceed to the next checkpoint.</p>
+                    <div id="hcaptcha-container"></div> <a class="button" id="continue">Please wait 0 seconds</a><br><br>
+                    <footer>
+                        Thank you for using Overdrive H.
+                    </footer>
+                </div>
+            </div>
+            <footer>
+                <p>© Overdrive H 2025. All rights reserved.</p>
+            </footer>
+        </div>
+        <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+        <script>
+        const alertContent = document.getElementById("alert-content")
+            const customAlert = document.getElementById("customAlert")
+    alertContent.addEventListener("mouseenter", function() {
+                alertContent.style.transform = "translateY(-10px) scale(1.015)"; // Move up and scale up
+            });
+    
+            alertContent.addEventListener("mouseleave", function() {
+                alertContent.style.transform = "translateY(0) scale(1)"; // Reset position and scale
+            });
+            
+            function showAlert(message) {
+            const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = 1;
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.3 // Trigger earlier
+                });
+                observer.observe(alertContent);
+                document.getElementById("alert-text").textContent = message
+        customAlert.style.display = "flex";
+        customAlert.style.opacity = "1"
+        alertContent.style.transform = "translateY(100px)"
+        setTimeout(function() {
+            alertContent.style.transform = "translateY(0px)"
+        }, 1)
     }
+    
+    // Function to close alert
+    document.getElementById("alert-okay").addEventListener("click", function() {
+        const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = 0
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.3 // Trigger earlier
+                });
+                observer.observe(alertContent);
+                customAlert.style.opacity = "0"
+                setTimeout(function() {
+                customAlert.style.display = "none";
+                }, 1000)
+                alertContent.style.transform = "translateY(100px)"
+    })
+        document.getElementById("menuIcon").addEventListener('click', function() {
+            var menuContainer = document.getElementById("menuContainer");
+            var menuIcon = document.getElementById("menuIcon");
 
-    header {
-      text-align: center;
-      padding: 40px 20px 10px;
-    }
+            if (menuContainer.classList.contains("expand")) {
+                menuIcon.classList.remove("rotating");
+                menuContainer.classList.remove("expand");
+            } else {
+                menuContainer.classList.add("expand");
+                menuIcon.classList.add("rotating");
+            }
+        })
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let hash = urlParams.get('hash') || ""
+                let ru = true
+        let storage = window.localStorage || localStorage
+        function string2hex(g) {
+            s = unescape(encodeURIComponent(g.toString()))
+            var h = ''
+            for (var i = 0; i < s.length; i++) {
+                h += (s.charCodeAt(i) * 2).toString(16)
+            }
+            return h
+        }
+        function hex2string(g) {
+            var hex = g.toString();
+            let str = '';
+            for (var i = 0; i < hex.length; i += 2) {
+                str += String.fromCharCode(parseInt(hex.substr(i, 2), 16) / 2);
+            }
+            return str
+        }
+        if (!storage) {
+            ru = false
+            showAlert("Your browser aren't supported.")
+            const a = document.getElementById("continue");
+                a.textContent = "Browser not supported!"
+                a.style["background-color"] = "red"
+        }
+        if (ru) {
+            let unique_key = parseInt(storage.getItem("_o_kf_g")) || ""
+            if (!unique_key || unique_key == "") {
+                window.location.href = "https://overdrivehub.netlify.app/key_services?HWID=" + (storage.getItem("HWID") || "");
+            }
+            const diu = [
+                [1, 6, 21600],
+                [2, 12, 43200],
+                [3, 24, 86400],
+                [5, 48, 172800],
+                [8, 72, 259200]
+            ]
+            const tr = diu[((storage.getItem("__r_osq") || 1) / unique_key) - 1]
+            if (!tr) {
+                window.location.href = "https://overdrivehub.netlify.app/key_services?HWID=" + (storage.getItem("HWID") || "");
+            }
+            let USER_ID = (parseInt(storage.getItem("__d__wn")) || 1) / unique_key
+            let COMPLETED_CHECKPOINTS = Math.floor((parseInt(storage.getItem("_a_dt")) || 0) / unique_key / unique_key / unique_key / unique_key / unique_key)
+            let SERVICE = (parseInt(storage.getItem("_sr_o")) || 1) / unique_key
+            let CHECKPOINTS = tr[0]
+            let KEY_DURATION = tr[1]
+            const desc = document.getElementById("desc")
+            const cn = document.getElementById("continue")
+            let generate
+            let can_copy
+            let key
+            let captcha_complete
+            let reg
+            const ref = document.referrer
+            if (COMPLETED_CHECKPOINTS > CHECKPOINTS || 0 > COMPLETED_CHECKPOINTS) {
+                COMPLETED_CHECKPOINTS = 0
+                storage.setItem("_a_dt", 0)
+                showAlert("Bypass Detected!")
+            }
+            if (SERVICE == 10) {
+                SERVICE = "Linkvertise"
+            } else if (SERVICE == 20) {
+                SERVICE = "LootLabs"
+            } else {
+                window.location.href = "https://overdrivehub.netlify.app/key_services?HWID=" + (storage.getItem("HWID") || "");
+            }
+            const de = hex2string(storage.getItem("a_q_w_d") || "")
+            if (de && de !== "" && de.length > 10) {
+                desc.innerText = de
+                cn.textContent = "➛ Copy Key"
+                can_copy = true
+                reg = true
+                key = de
+            }
+            if (performance.navigation.type !== performance.navigation.TYPE_RELOAD) {
+                if (((SERVICE == "Linkvertise" && ref == "https://linkvertise.com/" && hash !== "" && hash.length > 51) || (SERVICE == "LootLabs" && (ref == "https://loot-link.com/" || ref == "https://lootdest.org/"))) && storage.getItem("___") == 0) {
+                    let ee = (storage.getItem("_dfw_a_qi") || 0) / unique_key
+                    let ww
+                    if (SERVICE == "Linkvertise") {
+                        ww = 10
+                    } else if (SERVICE == "LootLabs") {
+                        ww = 25
+                    }
+                    if (((Date.now() / 1000) - (ee / 1000)) > ww) {
+                        if (SERVICE == "Linkvertise") {
+                            let last_hash = hex2string(storage.getItem("o_p_x_z") || "")
+                            if (last_hash !== hash) {
+                                COMPLETED_CHECKPOINTS ++;
+                                storage.setItem("_a_dt", COMPLETED_CHECKPOINTS * unique_key * unique_key * unique_key * unique_key * unique_key)
+                                storage.setItem("_dfw_a_qi", Date.now())
+                                storage.setItem("o_p_x_z", string2hex(hash))
+                            } else {
+                                if (COMPLETED_CHECKPOINTS !== CHECKPOINTS) {
+                                    showAlert("Bypass Detected!")
+                                }
+                            }
+                        } else {
+                            COMPLETED_CHECKPOINTS ++;
+                            storage.setItem("_a_dt", COMPLETED_CHECKPOINTS * unique_key * unique_key * unique_key * unique_key * unique_key)
+                            storage.setItem("_dfw_a_qi", Date.now())
+                        }
+                    } else {
+                        if (COMPLETED_CHECKPOINTS !== CHECKPOINTS) {
+                            showAlert("Bypass Detected!")
+                        }
+                    }
+                }
+            }
+            if (!can_copy && COMPLETED_CHECKPOINTS == CHECKPOINTS) {
+                generate = true
+                desc.innerHTML = "Click <b>'Create Key'</b> to create your validated key."
+            }
+            document.getElementById("TARGET_SERVICE").textContent = SERVICE
+            document.getElementById("KEY_DURATION").textContent = KEY_DURATION + " Hours"
+            document.getElementById("COMPLETED_CHECKPOINTS").textContent = COMPLETED_CHECKPOINTS
+            document.getElementById("CHECKPOINTS").textContent = CHECKPOINTS
+            let oh
+            window.onload = function() {
+                if (window.hcaptcha) {
+                    if (COMPLETED_CHECKPOINTS == 0) {
+                        const container = document.getElementById("hcaptcha-container");
+                        const captcha = document.createElement("div");
+                        captcha.id = "hcaptcha-widget";
+                        container.appendChild(captcha);
+                        window.hcaptcha.render("hcaptcha-widget", {
+                            sitekey: "7c404cc6-eef8-438c-ae44-442649bc36fe",
+                            callback: function(token) {
+                                if (token && token.length > 1295) {
+                                    captcha_complete = true
+                                }
+                            }
+                        });
+                    } else {
+                        captcha_complete = true
+                    }
+                } else {
+                    document.addEventListener("hcaptchaLoaded", loadHCaptcha);
+                }
+            };
+            storage.removeItem("___")
+            storage.removeItem("_dfw_a_qi")
+            cn.addEventListener('click', function() {
+                if (reg) {
+                    if (captcha_complete) {
+                        if (can_copy) {
+                            if (key) {
+                                navigator.clipboard.writeText(key)
+                                cn.textContent = "Copied to Clipboard!"
+                                setTimeout(function() {
+                                    cn.textContent = "➛ Copy Key"
+                                }, 1000)
+                            }
+                        } else {
+                            if (!generate) {
+                                storage.setItem("___", 0)
+                                storage.setItem("_dfw_a_qi", Date.now() * unique_key)
+                                setTimeout(function() {
+                                    if (SERVICE == "Linkvertise") {
+                                        window.location.href = "https://link-hub.net/978899/overdrive-h-checkpoint1"
+                                    } else if (SERVICE == "LootLabs") {
+                                        if (COMPLETED_CHECKPOINTS == 0) {
+                                            window.location.href = "https://lootdest.org/s?L6HvWhKv"
+                                        } else if (COMPLETED_CHECKPOINTS == 1) {
+                                            window.location.href = "https://loot-link.com/s?Gu58DGOn"
+                                        } else if (COMPLETED_CHECKPOINTS == 2) {
+                                            window.location.href = "https://lootdest.org/s?p2bcl5xE"
+                                        } else if (COMPLETED_CHECKPOINTS == 3) {
+                                            window.location.href = "https://loot-link.com/s?9FL9cELI"
+                                        } else if (COMPLETED_CHECKPOINTS == 4) {
+                                            window.location.href = "https://loot-link.com/s?FDXHqTn5"
+                                        } else if (COMPLETED_CHECKPOINTS == 5) {
+                                            window.location.href = "https://loot-link.com/s?4aXniByz"
+                                        } else if (COMPLETED_CHECKPOINTS == 6) {
+                                            window.location.href = "https://lootdest.org/s?Tj2cSArl"
+                                        } else if (COMPLETED_CHECKPOINTS == 7) {
+                                            window.location.href = "https://loot-link.com/s?Lzb6fNLY"
+                                        }
+                                    }
+                                }, 500)
+                            } else {
+                                if (!oh) {
+                                    oh = true
+                                    cn.textContent = "..."
+                                    setTimeout(function() {
+                                        let h = string2hex(USER_ID.toString() + "_" + (Math.floor(Date.now() / 1000) + tr[2]).toString())
+                                        key = h
+                                        desc.innerText = h
+                                        cn.textContent = "➛ Copy Key"
+                                        can_copy = true
+                                        storage.setItem("a_q_w_d", string2hex(h))
+                                    }, 2000)
+                                }
+                            }
+                        }
+                    } else {
+                        showAlert("Please complete the captcha first!")
+                    }
+                }
+            })
+            if (!can_copy) {
+                let s = 11
+                function d() {
+                    if (s !== 1) {
+                        s --
+                        cn.textContent = "Please wait " + s + " seconds"
+                        setTimeout(d, 1000)
+                    } else {
+                        if (generate) {
+                            cn.textContent = "➛ Create Key"
+                        } else {
+                            cn.textContent = "➛ Continue"
+                        }
+                        reg = true
+                    }
+                }
+                d()
+            }
+        }
+        // Close menu when clicking outside
+        window.onclick = function(event) { // yeah
+            var menuContainer = document.getElementById("menuContainer");
+            var menuIcon = document.getElementById("menuIcon");
 
-    h1 {
-      font-size: 40px;
-      color: #c084fc;
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
+            if (!menuContainer.contains(event.target) && !menuIcon.contains(event.target) && menuContainer.classList.contains("expand")) {
+                menuIcon.textContent = "+";
+                menuIcon.classList.remove("rotating");
+                menuContainer.classList.remove("expand");
+            }
+        };
+        function fadeAnim(i, e) {
+            const imageContainer = document.getElementById(i);
+            if (!imageContainer) return;
+            if (e) {
+                    imageContainer.addEventListener("mouseenter", function() {
+            imageContainer.style.transform = "translateY(-10px) scale(1.015)"; // Move up and scale up
+        });
 
-    .script-box {
-      background: #1a002b;
-      margin: 20px auto;
-      padding: 20px;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #a855f7;
-      text-align: center;
-    }
-
-    .script-box div {
-      font-weight: 700;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .script-box input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      font-size: 14px;
-      background-color: #2e003e;
-      color: #d9b4ff;
-      user-select: all;
-    }
-
-    .copy-btn {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #c084fc;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background-color 0.3s ease;
-    }
-
-    .copy-btn:hover {
-      background-color: #9f6ede;
-    }
-
-    .status-section {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .status-section h2 {
-      font-size: 28px;
-      color: #c084fc;
-      margin-bottom: 20px;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .status-list {
-      background: #1a002b;
-      max-width: 400px;
-      margin: 0 auto;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 15px #a855f7;
-    }
-
-    .status-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 12px 0;
-      font-size: 18px;
-      color: #f3e8ff;
-      font-weight: 600;
-    }
-
-    .status-indicator {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-    }
-
-    .online {
-      background-color: #22c55e;
-      box-shadow: 0 0 8px #22c55e;
-    }
-
-    .offline {
-      background-color: #ef4444;
-      box-shadow: 0 0 8px #ef4444;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>RealzX Hub</h1>
-  </header>
-
-  <div class="script-box">
-    <div>RealzX Hub Script</div>
-    <input type="text" id="scriptText" value='loadstring(game:HttpGet("https://realzxhubb.vercel.app"))()' readonly />
-    <button class="copy-btn" onclick="copyScript()">Copy Script</button>
-  </div>
-
-  <div class="status-section">
-    <h2>Script Status</h2>
-    <div class="status-list">
-      <div class="status-item">
-        Brookhaven RP 👮 <span class="status-indicator online"></span>
-      </div>
-      <div class="status-item">
-        Blue Lock: Rivals ⚽ <span class="status-indicator online"></span>
-      </div>
-      <div class="status-item">
-        Blox Fruits 🍉 <span class="status-indicator online"></span>
-      </div>
-      <div class="status-item">
-        Murder Mystery 2 🔪 <span class="status-indicator offline"></span>
-      </div>
-      <div class="status-item">
-        Gym League 💪 <span class="status-indicator online"></span>
-      </div>
-      <div class="status-item">
-        Universal 🌐 <span class="status-indicator online"></span>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function copyScript() {
-      const copyText = document.getElementById('scriptText');
-      copyText.select();
-      copyText.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(copyText.value).then(() => {
-        alert('Copied the script!');
-      });
-    }
-  </script>
-</body>
+        imageContainer.addEventListener("mouseleave", function() {
+            imageContainer.style.transform = "translateY(0) scale(1)"; // Reset position and scale
+        });}
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transform = "translateY(0)";
+                        entry.target.style.opacity = "1"                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.3 // Trigger earlier
+            });
+            observer.observe(imageContainer);
+        }
+        fadeAnim('v', false);
+        fadeAnim('checkpoint-container', true);
+    </script>
+    </body>
 </html>
