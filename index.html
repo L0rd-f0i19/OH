@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>RealzX Hub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0c0014;
       color: white;
       background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      background-size: cover;
+      background-repeat: repeat;
+      background-size: auto;
     }
 
     header {
@@ -22,6 +23,8 @@
     h1 {
       font-size: 40px;
       color: #c084fc;
+      font-weight: 900;
+      letter-spacing: 2px;
     }
 
     .script-box {
@@ -35,15 +38,21 @@
       text-align: center;
     }
 
+    .script-box div {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
     .script-box input {
       width: 100%;
       padding: 12px;
       border-radius: 8px;
       border: none;
       font-size: 14px;
-      margin-top: 10px;
       background-color: #2e003e;
       color: #d9b4ff;
+      user-select: all;
     }
 
     .copy-btn {
@@ -54,6 +63,12 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: #9f6ede;
     }
 
     .status-section {
@@ -65,6 +80,8 @@
       font-size: 28px;
       color: #c084fc;
       margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
     .status-list {
@@ -83,6 +100,7 @@
       margin: 12px 0;
       font-size: 18px;
       color: #f3e8ff;
+      font-weight: 600;
     }
 
     .status-indicator {
@@ -92,59 +110,60 @@
     }
 
     .online {
-      background-color: #b46bff;
+      background-color: #22c55e; /* أخضر */
+      box-shadow: 0 0 8px #22c55e;
     }
 
     .offline {
-      background-color: #ff2d55;
+      background-color: #ef4444; /* أحمر */
+      box-shadow: 0 0 8px #ef4444;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>RealzX Hub</h1>
+  </header>
 
-<header>
-  <h1>RealzX Hub</h1>
-</header>
+  <div class="script-box">
+    <div>RealzX Hub Script</div>
+    <input type="text" id="scriptText" value='loadstring(game:HttpGet("https://realzxhubb.vercel.app"))()' readonly />
+    <button class="copy-btn" onclick="copyScript()">Copy Script</button>
+  </div>
 
-<div class="script-box">
-  <div>RealzX Hub Script</div>
-  <input type="text" id="scriptText" value='loadstring(game:HttpGet("https://realzxhubb.vercel.app"))()' readonly>
-  <button class="copy-btn" onclick="copyScript()">Copy Script</button>
-</div>
-
-<div class="status-section">
-  <h2>Script Status</h2>
-  <div class="status-list">
-    <div class="status-item">
-      Brookhaven RP 👮 <span class="status-indicator online"></span>
-    </div>
-    <div class="status-item">
-      Blue Lock: Rivals ⚽ <span class="status-indicator online"></span>
-    </div>
-    <div class="status-item">
-      Blox Fruits 🍉 <span class="status-indicator online"></span>
-    </div>
-    <div class="status-item">
-      Murder Mystery 2 🔪 <span class="status-indicator offline"></span>
-    </div>
-    <div class="status-item">
-      Gym League 💪 <span class="status-indicator online"></span>
-    </div>
-    <div class="status-item">
-      Universal 🌐 <span class="status-indicator online"></span>
+  <div class="status-section">
+    <h2>Script Status</h2>
+    <div class="status-list">
+      <div class="status-item">
+        Brookhaven RP 👮 <span class="status-indicator online"></span>
+      </div>
+      <div class="status-item">
+        Blue Lock: Rivals ⚽ <span class="status-indicator online"></span>
+      </div>
+      <div class="status-item">
+        Blox Fruits 🍉 <span class="status-indicator online"></span>
+      </div>
+      <div class="status-item">
+        Murder Mystery 2 🔪 <span class="status-indicator offline"></span>
+      </div>
+      <div class="status-item">
+        Gym League 💪 <span class="status-indicator online"></span>
+      </div>
+      <div class="status-item">
+        Universal 🌐 <span class="status-indicator online"></span>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  function copyScript() {
-    var copyText = document.getElementById("scriptText");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); // For mobile
-    navigator.clipboard.writeText(copyText.value);
-    alert("Copied the script!");
-  }
-</script>
-
+  <script>
+    function copyScript() {
+      const copyText = document.getElementById('scriptText');
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // للهواتف
+      navigator.clipboard.writeText(copyText.value).then(() => {
+        alert('Copied the script!');
+      });
+    }
+  </script>
 </body>
 </html>
