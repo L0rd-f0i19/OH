@@ -5,261 +5,209 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RealzX Community Exploit</title>
 <style>
-  /* Reset & basic */
+  /* Reset & basics */
+  * {
+    box-sizing: border-box;
+  }
   body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
+    background: #1b004a;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    background: #1b0033;
+    color: #eee;
+    scroll-behavior: smooth;
     position: relative;
   }
 
-  /* Canvas background fills */
+  /* Starfield canvas */
   #starfield {
     position: fixed;
     top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background: #1b0033;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: #1b004a;
   }
 
-  /* Main container with scroll if needed */
-  #app {
-    position: relative;
-    z-index: 10;
-    max-width: 900px;
+  /* Container */
+  .container {
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 40px 20px 60px;
+    padding: 40px 20px 100px 20px;
+  }
+
+  h1, h2, h3 {
+    text-align: center;
+    text-shadow: 0 0 8px #a05fff;
+  }
+
+  /* Features Section */
+  #features {
+    margin-bottom: 60px;
+  }
+  .features-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+  }
+  .feature-item {
+    background: #3a0066cc;
+    border-radius: 12px;
+    width: 140px;
+    height: 140px;
+    color: #e0d8ff;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    box-shadow: 0 0 15px #8c52ffaa;
+    cursor: default;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  .feature-item:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 30px #b08cffdd;
+  }
+  .feature-icon {
+    font-size: 38px;
+    margin-bottom: 12px;
+  }
+  .feature-text {
+    font-weight: 600;
+    text-align: center;
   }
 
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    text-shadow: 0 0 15px #b366ff;
+  /* Section style */
+  section.section {
+    margin-bottom: 70px;
+    padding: 30px 20px;
+    background: #2b0066cc;
+    border-radius: 14px;
+    box-shadow: 0 0 20px #6e2fff88;
   }
 
-  /* Get Exploit button */
-  .btn-get-exploit {
-    background: linear-gradient(45deg, #9b30ff, #6a0dad);
-    border: none;
-    padding: 20px 55px;
-    font-size: 1.8rem;
-    font-weight: 700;
-    border-radius: 18px;
-    box-shadow: 0 0 25px #c07fff;
-    cursor: pointer;
-    color: white;
-    margin: 25px 0 50px 0;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-  }
-  .btn-get-exploit:hover {
-    transform: scale(1.12);
-    box-shadow: 0 0 50px #d580ff, 0 0 60px #a855f7;
-  }
-  .btn-get-exploit::before {
-    content: "";
-    position: absolute;
-    top: -40%;
-    left: -40%;
-    width: 180%;
-    height: 180%;
-    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
-    animation: rotatePulse 5s linear infinite;
-    border-radius: 18px;
-    pointer-events: none;
-  }
-  @keyframes rotatePulse {
-    0% {transform: rotate(0deg);}
-    100% {transform: rotate(360deg);}
-  }
-
-  /* Developer card */
-  .developer {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 55px;
-    max-width: 650px;
-    width: 90%;
-    background: rgba(75, 0, 130, 0.45);
-    border-radius: 25px;
-    padding: 25px 30px;
-    box-shadow: 0 0 40px #9b30ffbb;
-    backdrop-filter: blur(6px);
-  }
-  .developer img {
+  /* Developer section */
+  #developer img {
+    display: block;
+    margin: 15px auto 10px auto;
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 4px solid #d280ff;
+    border: 3px solid #b28aff;
+    box-shadow: 0 0 15px #b28affaa;
     object-fit: cover;
-    box-shadow: 0 0 22px #c07fff;
   }
-  .developer-info h2 {
-    margin: 0;
-    font-size: 2rem;
-    text-shadow: 0 0 10px #d280ff;
-  }
-  .developer-info p {
-    margin: 7px 0 0 0;
-    font-size: 1.1rem;
-    color: #e0d7ffcc;
-  }
-
-  /* Supported maps */
-  .maps {
-    max-width: 750px;
-    width: 90%;
-    margin-bottom: 65px;
-  }
-  .maps h3 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
+  #developer p {
     text-align: center;
-    text-shadow: 0 0 9px #b366ff;
-  }
-  .maps-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-  }
-  .map-item {
-    background: rgba(115, 0, 180, 0.4);
-    padding: 18px 28px;
-    border-radius: 18px;
-    box-shadow: 0 0 22px #9b30ffaa;
-    font-size: 1.25rem;
-    font-weight: 600;
-    min-width: 160px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    transition: transform 0.35s ease;
-    cursor: default;
-  }
-  .map-item:hover {
-    transform: scale(1.12);
-  }
-  .map-icon {
-    font-size: 2rem;
-  }
-
-  /* Features */
-  .features {
-    max-width: 750px;
-    width: 90%;
-    margin-bottom: 65px;
-  }
-  .features h3 {
-    font-size: 2.2rem;
-    margin-bottom: 24px;
-    text-align: center;
-    text-shadow: 0 0 9px #b366ff;
-  }
-  .features-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-  }
-  .feature-item {
-    background: rgba(115, 0, 180, 0.45);
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: 0 0 35px #a855f7cc;
-    text-align: center;
-    color: #eee;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    cursor: default;
-  }
-  .feature-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 55px #d280ffcc;
-  }
-  .feature-icon {
-    font-size: 3.5rem;
-    margin-bottom: 18px;
-    color: #d280ff;
-    animation: glowPulse 3.5s ease infinite;
-  }
-  @keyframes glowPulse {
-    0%, 100% {text-shadow: 0 0 10px #d280ff;}
-    50% {text-shadow: 0 0 30px #a855f7;}
-  }
-  .feature-text {
     font-size: 1.2rem;
-    font-weight: 700;
+    margin-top: 0;
+  }
+
+  /* Gallery */
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .gallery img {
+    width: 220px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #a478ffcc;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .gallery img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #d3a6ffdd;
+  }
+
+  /* Support Map iframe */
+  #support-map iframe {
+    border-radius: 14px;
+    box-shadow: 0 0 25px #b8a3ffbb;
+  }
+
+  /* Buttons */
+  .btn-get-exploit {
+    display: block;
+    margin: 30px auto 10px auto;
+    background: #8a52ff;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px #9c6cff;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .btn-get-exploit:hover:not(:disabled) {
+    background: #b385ff;
+    transform: scale(1.05);
+  }
+  .btn-get-exploit:disabled {
+    background: #6b3ecc;
+    cursor: wait;
   }
 
   /* Footer */
   footer {
-    padding: 20px 15px;
-    width: 100%;
     text-align: center;
-    background: rgba(50, 0, 80, 0.75);
-    font-size: 1rem;
-    color: #ccc;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    color: #b8a6ffcc;
     user-select: none;
+  }
+
+  /* Discord Button */
+  .discord-button {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 15;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    z-index: 10000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 4px #8a52ff);
   }
-  footer a {
-    color: #d280ff;
-    text-decoration: none;
-    font-weight: 600;
+  .discord-button img {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
-  footer a:hover {
-    text-decoration: underline;
+  .discord-button:hover {
+    transform: scale(1.25);
   }
+
+  /* FontAwesome icons (for features) */
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
 </style>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-/>
 </head>
 <body>
 
 <canvas id="starfield"></canvas>
 
-<div id="app">
+<!-- Discord invite -->
+<a href="https://discord.gg/yourinvite" target="_blank" class="discord-button" title="Join our Discord">
+  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord Logo" />
+</a>
+
+<div class="container">
   <h1>RealzX Community Exploit</h1>
+  <button class="btn-get-exploit" onclick="getExploit()">Get Exploit</button>
 
-  <button class="btn-get-exploit" onclick="getExploit()">
-    <i class="fas fa-bolt"></i> Get Exploit
-  </button>
-
-  <div class="developer" aria-label="Developer Information">
-    <img src="https://i.pravatar.cc/120?u=realzx" alt="Developer RealzX Photo" />
-    <div class="developer-info">
-      <h2>RealzX</h2>
-      <p>Lead Developer & Exploit Creator<br>Passionate about Roblox scripting & community support.</p>
-    </div>
-  </div>
-
-  <section class="maps" aria-label="Supported Maps List">
-    <h3>Supported Maps</h3>
-    <div class="maps-list">
-      <div class="map-item"><i class="fas fa-map map-icon"></i> Brookhaven</div>
-      <div class="map-item"><i class="fas fa-city map-icon"></i> MeepCity</div>
-      <div class="map-item"><i class="fas fa-archway map-icon"></i> Royale High</div>
-      <div class="map-item"><i class="fas fa-campground map-icon"></i> Bloxburg</div>
-    </div>
-  </section>
-
-  <section class="features" aria-label="Exploit Features">
+  <section id="features" class="section">
     <h3>Features</h3>
-    <div class="features-list">
+    <div class="features-list" aria-label="Exploit Features">
       <div class="feature-item" title="Automated functions for your ease">
         <i class="fas fa-robot feature-icon"></i>
         <div class="feature-text">Auto Scripts</div>
@@ -286,98 +234,418 @@
       </div>
     </div>
   </section>
+
+  <section id="developer" class="section">
+    <h2>Developer</h2>
+    <img src="https://i.pravatar.cc/120?img=3" alt="Developer Photo" />
+    <p>Omar — Creator of Unknown Community & Master Exploit Developer</p>
+  </section>
+
+  <section id="photos" class="section">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <img src="https://i.imgur.com/x3dXhDw.jpg" alt="Roblox screenshot 1" />
+      <img src="https://i.imgur.com/LWBG0vm.jpg" alt="Roblox screenshot 2" />
+      <img src="https://i.imgur.com/dPqh2lY.jpg" alt="Roblox screenshot 3" />
+    </div>
+  </section>
+
+  <section id="support-map" class="section">
+    <h2>Support Map</h2>
+    <!-- Example Google Map embed, replace src with your actual location or relevant support map -->
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0733404650656!2d-122.41941518468118!3d37.77492977975981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064d1f245ff%3A0x598ac60d4d18a474!2sSan+Francisco%2C+CA!5e0!3m2!1sen!2sus!4v1586885613711!5m2!1sen!2sus" 
+      width="100%" 
+      height="300" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy"></iframe>
+  </section>
+
+  <section id="executor-support" class="section">
+    <h2>Executor Support</h2>
+    <p>
+      Compatible with top Roblox executors including:<br/>
+      - Synapse X<br/>
+      - Krnl<br/>
+      - Fluxus<br/>
+      - JJSploit<br/>
+      - ProtoSmasher<br/>
+    </p>
+    <p>Constant updates to support the latest executor changes.</p>
+  </section>
 </div>
 
 <footer>
-  &copy; 2025 RealzX Community Exploit | Developed by RealzX
+  &copy; 2025 RealzX Community Exploit | Developed by Omar
 </footer>
 
 <script>
-// Starfield Animation
-const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
-let width, height, stars;
+  // Starfield Animation
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let width, height, stars;
 
-function initStars() {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
+  function initStars() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
 
-  stars = [];
-  let starCount = Math.floor(width * height / 4000);
+    stars = [];
+    let starCount = Math.floor(width * height / 4000);
 
-  for (let i = 0; i < starCount; i++) {
-    stars.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 1.8 + 0.3,
-      speed: Math.random() * 0.3 + 0.05,
-      opacity: Math.random() * 0.8 + 0.2,
-      twinkleDir: Math.random() > 0.5 ? 1 : -1
-    });
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.8 + 0.3,
+        speed: Math.random() * 0.3 + 0.05,
+        opacity: Math.random() * 0.8 + 0.2,
+        twinkleDir: Math.random() > 0.5 ? 1 : -1
+      });
+    }
   }
-}
 
-function drawStars() {
-  ctx.clearRect(0, 0, width, height);
+Here is a full, optimized, clean and functional HTML page with all your requested features for your RealzX Community Exploit site, Omar:
 
-  for (let star of stars) {
-    star.x -= star.speed;
-    if (star.x < 0) star.x = width;
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RealzX Community Exploit</title>
+<style>
+  /* Reset & basics */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+    background: #1b004a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+    scroll-behavior: smooth;
+    position: relative;
+  }
 
-    star.opacity += 0.008 * star.twinkleDir;
-    if (star.opacity >= 1) {
-      star.opacity = 1;
-      star.twinkleDir = -1;
-    } else if (star.opacity <= 0.3) {
-      star.opacity = 0.3;
-      star.twinkleDir = 1;
+  /* Starfield canvas */
+  #starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: #1b004a;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px 100px 20px;
+  }
+
+  h1, h2, h3 {
+    text-align: center;
+    text-shadow: 0 0 8px #a05fff;
+  }
+
+  /* Features Section */
+  #features {
+    margin-bottom: 60px;
+  }
+  .features-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+  }
+  .feature-item {
+    background: #3a0066cc;
+    border-radius: 12px;
+    width: 140px;
+    height: 140px;
+    color: #e0d8ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px #8c52ffaa;
+    cursor: default;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  .feature-item:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 30px #b08cffdd;
+  }
+  .feature-icon {
+    font-size: 38px;
+    margin-bottom: 12px;
+  }
+  .feature-text {
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Section style */
+  section.section {
+    margin-bottom: 70px;
+    padding: 30px 20px;
+    background: #2b0066cc;
+    border-radius: 14px;
+    box-shadow: 0 0 20px #6e2fff88;
+  }
+
+  /* Developer section */
+  #developer img {
+    display: block;
+    margin: 15px auto 10px auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #b28aff;
+    box-shadow: 0 0 15px #b28affaa;
+    object-fit: cover;
+  }
+  #developer p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 0;
+  }
+
+  /* Gallery */
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .gallery img {
+    width: 220px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #a478ffcc;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .gallery img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #d3a6ffdd;
+  }
+
+  /* Support Map iframe */
+  #support-map iframe {
+    border-radius: 14px;
+    box-shadow: 0 0 25px #b8a3ffbb;
+  }
+
+  /* Buttons */
+  .btn-get-exploit {
+    display: block;
+    margin: 30px auto 10px auto;
+    background: #8a52ff;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px #9c6cff;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .btn-get-exploit:hover:not(:disabled) {
+    background: #b385ff;
+    transform: scale(1.05);
+  }
+  .btn-get-exploit:disabled {
+    background: #6b3ecc;
+    cursor: wait;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    color: #b8a6ffcc;
+    user-select: none;
+  }
+
+  /* Discord Button */
+  .discord-button {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    z-index: 10000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 4px #8a52ff);
+  }
+  .discord-button img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .discord-button:hover {
+    transform: scale(1.25);
+  }
+
+  /* FontAwesome icons (for features) */
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<!-- Discord invite -->
+<a href="https://discord.gg/yourinvite" target="_blank" class="discord-button" title="Join our Discord">
+  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord Logo" />
+</a>
+
+<div class="container">
+  <h1>RealzX Community Exploit</h1>
+  <button class="btn-get-exploit" onclick="getExploit()">Get Exploit</button>
+
+  <section id="features" class="section" aria-label="Features">
+    <h3>Features</h3>
+    <div class="features-list" aria-live="polite">
+      <div class="feature-item" title="Automated functions for your ease">
+        <i class="fas fa-robot feature-icon" aria-hidden="true"></i>
+        <div class="feature-text">Auto Scripts</div>
+      </div>
+      <div class="feature-item" title="Detect & kick toxic players">
+        <i class="fas fa-ban feature-icon" aria-hidden="true"></i>
+        <div class="feature-text">Toxic Kick</div>
+      </div>
+      <div class="feature-item" title="Reliable & fast execution">
+        <i class="fas fa-bolt feature-icon" aria-hidden="true"></i>
+        <div class="feature-text">Speed Boost</div>
+      </div>
+      <div class="feature-item" title="Custom anti-cheat bypass">
+        <i class="fas fa-shield-alt feature-icon" aria-hidden="true"></i>
+        <div class="feature-text">Anti-Cheat Bypass</div>
+      </div>
+      <div class="feature-item" title="Active support & updates">
+        <i class="fas fa-headset feature-icon" aria-hidden="true"></i>
+        <div class="feature-text">Support Team</div>
+      </div>
+      <div class="feature-item" title="Easy UI & customization">
+        <i class="fas fa-cogs feature-icon" aria-hidden="true"></i>
+        <div class="feature-text">User Friendly</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="developer" class="section" aria-label="Developer Information">
+    <h2>Developer</h2>
+    <img src="https://i.pravatar.cc/120?img=3" alt="Photo of Omar, Developer" />
+    <p>Omar — Creator of Unknown Community & Master Exploit Developer</p>
+  </section>
+
+  <section id="photos" class="section" aria-label="Gallery">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <img src="https://i.imgur.com/x3dXhDw.jpg" alt="Roblox screenshot 1" />
+      <img src="https://i.imgur.com/LWBG0vm.jpg" alt="Roblox screenshot 2" />
+      <img src="https://i.imgur.com/dPqh2lY.jpg" alt="Roblox screenshot 3" />
+    </div>
+  </section>
+
+  <section id="support-map" class="section" aria-label="Support Map">
+    <h2>Support Map</h2>
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0733404650656!2d-122.08424968468107!3d37.42206517982502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb0c24c947ab5%3A0x5645faad3c3c99f2!2sGoogleplex!5e0!3m2!1sen!2sus!4v1689146866803!5m2!1sen!2sus" 
+      width="100%" 
+      height="350" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade"
+      aria-label="Google Map showing support location">
+    </iframe>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 RealzX Community Exploit. All rights reserved.
+</footer>
+
+<script>
+  // Starfield canvas background
+  (() => {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let width, height;
+
+    function init() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      stars = [];
+      const count = Math.floor(width * height / 1500);
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.3 + 0.3,
+          alpha: Math.random(),
+          dAlpha: (Math.random() * 0.02) + 0.005,
+          growing: Math.random() > 0.5,
+        });
+      }
     }
 
-    ctx.beginPath();
-    const gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.size * 3);
-    gradient.addColorStop(0, `rgba(255,255,255,${star.opacity})`);
-    gradient.addColorStop(0.4, `rgba(255,255,255,${star.opacity * 0.4})`);
-    gradient.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = gradient;
-    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  requestAnimationFrame(drawStars);
-}
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255,255,255,${s.alpha.toFixed(2)})`;
+        ctx.fill();
 
-window.addEventListener('resize', initStars);
-initStars();
-drawStars();
+        if (s.growing) {
+          s.alpha += s.dAlpha;
+          if (s.alpha >= 1) {
+            s.alpha = 1;
+            s.growing = false;
+          }
+        } else {
+          s.alpha -= s.dAlpha;
+          if (s.alpha <= 0.2) {
+            s.alpha = 0.2;
+            s.growing = true;
+          }
+        }
+      });
+      requestAnimationFrame(animate);
+    }
 
-// Example API simulation
-function getExploit() {
-  const button = document.querySelector('.btn-get-exploit');
-  button.disabled = true;
-  button.textContent = 'Loading...';
+    window.addEventListener('resize', () => {
+      init();
+    });
 
-  // Simulate an async API call
-  setTimeout(() => {
-    // Example data from "API"
-    const apiResponse = {
-      name: "RealzX Community Exploit",
-      version: "v3.1.7",
-      lastUpdate: "2025-05-16",
-      features: ["Auto Scripts", "Toxic Kick", "Speed Boost", "Anti-Cheat Bypass", "Support Team", "User Friendly"]
-    };
+    init();
+    animate();
 
-    alert(
-      `Exploit Name: ${apiResponse.name}\n` +
-      `Version: ${apiResponse.version}\n` +
-      `Last Update: ${apiResponse.lastUpdate}\n` +
-      `Features: ${apiResponse.features.join(", ")}`
-    );
-
-    button.textContent = 'Get Exploit';
-    button.disabled = false;
-  }, 1400);
-}
+    // Button "Get Exploit" function placeholder
+    window.getExploit = function() {
+      alert('Exploit download is not available yet, Omar. Stay tuned!');
+    }
+  })();
 </script>
 
 </body>
